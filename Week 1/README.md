@@ -282,7 +282,6 @@ Content-Type: application/json
 
 _Add screenshots of the Login, Register, Dashboard, Task List, Create/Edit Task, and Profile pages here before submission, e.g.:_
 
-```
 <img width="1126" height="808" alt="Screenshot 2026-07-04 125035" src="https://github.com/user-attachments/assets/3867b1ba-bfea-470a-bb5a-8f442d6bc5aa" />
 
 <img width="1919" height="975" alt="Screenshot 2026-07-04 125115" src="https://github.com/user-attachments/assets/c42a3b5f-a256-4388-b1ac-4b672e3853cf" />
@@ -293,7 +292,6 @@ _Add screenshots of the Login, Register, Dashboard, Task List, Create/Edit Task,
 
 <img width="1919" height="969" alt="Screenshot 2026-07-04 125153" src="https://github.com/user-attachments/assets/4e39329c-29e9-4b73-8639-3217b375ae23" />
 
-```
 
 ---
 
