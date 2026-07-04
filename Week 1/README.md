@@ -1,4 +1,4 @@
-# Ledger — Task Management Platform
+# Ledger - Task Management Platform
 
 A full-stack task management platform built for the ITSimplera Fullstack Web Development Internship — Week 1 Task. It implements secure authentication, complete CRUD operations, and a responsive UI, following a professional project structure.
 
@@ -283,12 +283,16 @@ Content-Type: application/json
 _Add screenshots of the Login, Register, Dashboard, Task List, Create/Edit Task, and Profile pages here before submission, e.g.:_
 
 ```
-docs/screenshots/login.png
-docs/screenshots/dashboard.png
-docs/screenshots/tasks.png
-docs/screenshots/create-task.png
-docs/screenshots/profile.png
-docs/screenshots/dark-mode.png
+<img width="1126" height="808" alt="Screenshot 2026-07-04 125035" src="https://github.com/user-attachments/assets/3867b1ba-bfea-470a-bb5a-8f442d6bc5aa" />
+
+<img width="1919" height="975" alt="Screenshot 2026-07-04 125115" src="https://github.com/user-attachments/assets/c42a3b5f-a256-4388-b1ac-4b672e3853cf" />
+
+<img width="1919" height="973" alt="Screenshot 2026-07-04 125137" src="https://github.com/user-attachments/assets/6fe58489-481a-4fe5-9c2e-4518bacbc2f2" />
+
+<img width="1919" height="974" alt="Screenshot 2026-07-04 125126" src="https://github.com/user-attachments/assets/29109ba9-569d-4770-bc85-782ef5f1c740" />
+
+<img width="1919" height="969" alt="Screenshot 2026-07-04 125153" src="https://github.com/user-attachments/assets/4e39329c-29e9-4b73-8639-3217b375ae23" />
+
 ```
 
 ---
