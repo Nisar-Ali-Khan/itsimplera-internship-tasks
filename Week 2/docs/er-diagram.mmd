@@ -1,0 +1,35 @@
+erDiagram
+    USER {
+        ObjectId _id PK
+        String name
+        String email "unique"
+        String password "bcrypt hashed"
+        String avatarColor
+        String bio
+        Date lastLogin
+        Date createdAt
+        Date updatedAt
+    }
+
+    TASK {
+        ObjectId _id PK
+        String title
+        String description
+        String priority "Low | Medium | High"
+        String status "Pending | In Progress | Completed"
+        Date dueDate
+        ObjectId user FK
+        Boolean isDeleted "soft delete flag"
+        Date deletedAt
+        Date createdAt
+        Date updatedAt
+    }
+
+    TOKENBLACKLIST {
+        ObjectId _id PK
+        String token "unique, JWT"
+        Date expiresAt "TTL index"
+    }
+
+    USER ||--o{ TASK : "owns"
+    USER ||--o{ TOKENBLACKLIST : "invalidates on logout"
