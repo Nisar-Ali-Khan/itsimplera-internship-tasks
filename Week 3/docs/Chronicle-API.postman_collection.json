@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "Chronicle — Blogging & Content Platform API",
+    "description": "Full-Stack Blogging & Content Platform with Role-Based Access. Covers all endpoints for the ITSimplera Full Stack Web Development Internship — Week 3 Task.\n\nHow to use:\n1. Import this collection.\n2. Run \"Register (Author)\" — saves the JWT into {{token}} and marks you as an author so you can create posts.\n3. Run \"Create Post\" to get a {{postId}}, then explore the rest.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" },
+    { "key": "postId", "value": "" },
+    { "key": "commentId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register (Author)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ava Author\",\n  \"email\": \"ava.author@example.com\",\n  \"password\": \"secret123\",\n  \"role\": \"author\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": ["if (pm.response.code === 201) { pm.collectionVariables.set('token', pm.response.json().token); }"] }
+            }
+          ]
+        },
+        {
+          "name": "Register (Reader)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ray Reader\",\n  \"email\": \"ray.reader@example.com\",\n  \"password\": \"secret123\",\n  \"role\": \"reader\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ava.author@example.com\",\n  \"password\": \"secret123\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": ["if (pm.response.code === 200) { pm.collectionVariables.set('token', pm.response.json().token); }"] }
+            }
+          ]
+        },
+        { "name": "Get Current User", "request": { "method": "GET", "url": "{{baseUrl}}/auth/me" } },
+        { "name": "Logout", "request": { "method": "POST", "url": "{{baseUrl}}/auth/logout" } }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        { "name": "Get Profile", "request": { "method": "GET", "url": "{{baseUrl}}/users/profile" } },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users/profile",
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Ava Author\",\n  \"bio\": \"Writer of things worth reading.\"\n}" }
+          }
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/users/profile/avatar",
+            "body": { "mode": "formdata", "formdata": [{ "key": "avatar", "type": "file", "src": "" }] }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/users/change-password",
+            "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"secret123\",\n  \"newPassword\": \"newSecret456\"\n}" }
+          }
+        },
+        { "name": "Author Dashboard Stats", "request": { "method": "GET", "url": "{{baseUrl}}/users/dashboard-stats" } },
+        { "name": "Get My Bookmarks", "request": { "method": "GET", "url": "{{baseUrl}}/users/bookmarks" } }
+      ]
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "Create Post",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/posts",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Getting Started with the MERN Stack\",\n  \"content\": \"<p>This is my <strong>first</strong> post on Chronicle.</p>\",\n  \"category\": \"Engineering\",\n  \"tags\": [\"mern\", \"javascript\"],\n  \"status\": \"published\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": ["if (pm.response.code === 201) { pm.collectionVariables.set('postId', pm.response.json().post._id); }"] }
+            }
+          ]
+        },
+        {
+          "name": "Get All Posts (search/filter/sort/paginate)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/posts?search=&category=&tag=&sort=newest&page=1&limit=9",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"],
+              "query": [
+                { "key": "search", "value": "" },
+                { "key": "category", "value": "" },
+                { "key": "tag", "value": "" },
+                { "key": "sort", "value": "newest" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "9" }
+              ]
+            }
+          }
+        },
+        { "name": "Get My Posts (author dashboard)", "request": { "method": "GET", "url": "{{baseUrl}}/posts/mine" } },
+        { "name": "Get Post By Id", "request": { "method": "GET", "url": "{{baseUrl}}/posts/{{postId}}" } },
+        {
+          "name": "Update Post",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/posts/{{postId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"published\"\n}" }
+          }
+        },
+        {
+          "name": "Upload Cover Image",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/posts/{{postId}}/cover-image",
+            "body": { "mode": "formdata", "formdata": [{ "key": "coverImage", "type": "file", "src": "" }] }
+          }
+        },
+        { "name": "Toggle Like", "request": { "method": "POST", "url": "{{baseUrl}}/posts/{{postId}}/like" } },
+        { "name": "Toggle Bookmark", "request": { "method": "POST", "url": "{{baseUrl}}/posts/{{postId}}/bookmark" } },
+        { "name": "Delete Post", "request": { "method": "DELETE", "url": "{{baseUrl}}/posts/{{postId}}" } }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/posts/{{postId}}/comments",
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"Great post — thanks for sharing!\"\n}" }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": ["if (pm.response.code === 201) { pm.collectionVariables.set('commentId', pm.response.json().comment._id); }"] }
+            }
+          ]
+        },
+        {
+          "name": "Add Reply (threaded)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/posts/{{postId}}/comments",
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"Totally agree!\",\n  \"parentComment\": \"{{commentId}}\"\n}" }
+          }
+        },
+        { "name": "Get Comments For Post", "request": { "method": "GET", "url": "{{baseUrl}}/posts/{{postId}}/comments" } },
+        {
+          "name": "Update Comment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/comments/{{commentId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"content\": \"Edited: great post, thanks!\"\n}" }
+          }
+        },
+        { "name": "Delete Comment", "request": { "method": "DELETE", "url": "{{baseUrl}}/comments/{{commentId}}" } }
+      ]
+    }
+  ]
+}

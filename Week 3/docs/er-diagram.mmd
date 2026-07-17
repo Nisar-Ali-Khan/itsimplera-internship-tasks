@@ -1,0 +1,61 @@
+erDiagram
+    USER {
+        ObjectId _id PK
+        String name
+        String email "unique"
+        String password "bcrypt hashed"
+        String role "author | reader"
+        String bio
+        String profilePicUrl
+        String avatarColor
+        Date lastLogin
+        Date createdAt
+        Date updatedAt
+    }
+
+    POST {
+        ObjectId _id PK
+        String title
+        String slug "unique, auto-generated"
+        String content "sanitized rich text HTML"
+        String coverImageUrl
+        String category
+        StringArray tags
+        String status "draft | published"
+        ObjectId author FK
+        Number viewCount
+        ObjectIdArray likedBy
+        Date createdAt
+        Date updatedAt
+    }
+
+    COMMENT {
+        ObjectId _id PK
+        String content
+        ObjectId post FK
+        ObjectId user FK
+        ObjectId parentComment FK "optional, for threading"
+        Date createdAt
+        Date updatedAt
+    }
+
+    BOOKMARK {
+        ObjectId _id PK
+        ObjectId user FK
+        ObjectId post FK
+        Date createdAt
+    }
+
+    TOKENBLACKLIST {
+        ObjectId _id PK
+        String token "unique, JWT"
+        Date expiresAt "TTL index"
+    }
+
+    USER ||--o{ POST : "authors"
+    USER ||--o{ COMMENT : "writes"
+    USER ||--o{ BOOKMARK : "saves"
+    USER ||--o{ TOKENBLACKLIST : "invalidates on logout"
+    POST ||--o{ COMMENT : "has"
+    POST ||--o{ BOOKMARK : "saved as"
+    COMMENT ||--o{ COMMENT : "replies to"
