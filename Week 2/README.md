@@ -17,7 +17,6 @@ A full-stack task management platform built for the ITSimplera Full Stack Web De
 7. [Database Schema](#database-schema)
 8. [Security Notes](#security-notes)
 9. [Deliverables Checklist (Week 2)](#deliverables-checklist-week-2)
-10. [Screenshots](#screenshots)
 
 ---
 
