@@ -17,7 +17,6 @@ A production-style, role-based blogging platform built for the ITSimplera Full S
 7. [Database Schema](#database-schema)
 8. [Security Notes](#security-notes)
 9. [Deliverables Checklist](#deliverables-checklist)
-10. [Screenshots](#screenshots)
 
 ---
 
@@ -307,14 +306,3 @@ Content-Type: application/json
 
 ---
 
-## Screenshots
-
-_Add screenshots here before submission — Feed, Post Detail (with comments), Create/Edit Post, My Posts dashboard, Profile, Login/Register:_
-
-```
-docs/screenshots/feed.png
-docs/screenshots/post-detail.png
-docs/screenshots/create-post.png
-docs/screenshots/my-posts.png
-docs/screenshots/profile.png
-```
